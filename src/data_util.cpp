@@ -19,11 +19,11 @@ namespace data_util {
 
     template<>
     vector<string> convertFromFile<string>() { /* specific for T = animal */
-
+        return vector<string>{};
     }
 
     template<>
     vector<int> convertFromFile<int>() { /* specific for T = animal */
-
+        return vector<int>{};
     }
 }
