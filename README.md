@@ -1,2 +1,2 @@
 # cpp-commons-static-lib
-Common functions and classes static library
+C++ common functions and classes (static library)
