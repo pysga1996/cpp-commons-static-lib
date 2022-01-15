@@ -1,9 +1,6 @@
 #ifndef CPP_COMMONS_COMMON_STACK_H
 #define CPP_COMMONS_COMMON_STACK_H
 
-#ifndef CPP_COMMONS_COMMON_SET_H
-#define CPP_COMMONS_COMMON_SET_H
-
 #include <stack>
 #include <string>
 #include <exception>
@@ -17,7 +14,7 @@ namespace cpp_commons {
 
     namespace common_collection {
 
-        namespace common_set {
+        namespace common_stack {
 
             template<typename T>
             std::stack<T> convertFromString(const std::string &str) {
@@ -30,14 +27,14 @@ namespace cpp_commons {
                 while (end != string::npos) {
                     token = str.substr(start, end - start);
                     data = common_util::convertData<T>(token);
-                    s.insert(data);
+                    s.push(data);
 //                    cout << token << endl;
                     start = end + DELIM.length();
                     end = str.find(DELIM, start);
                 }
                 token = str.substr(start, end);
                 data = common_util::convertData<T>(token);
-                s.insert(data);
+                s.push(data);
 //                cout << token << endl;
                 return s;
             }
@@ -58,17 +55,29 @@ namespace cpp_commons {
             }
 
             template<typename T>
+            void printInternal(std::stack<T> s) {
+                using namespace std;
+                // If stack is empty then return
+                if (s.empty())
+                    return;
+                T x = s.top();
+                // Pop the top element of the stack
+                s.pop();
+                // Recursively call the function PrintStack
+                printInternal(s);
+                // Print the stack element starting
+                // from the bottom
+                cout << " " << x << " |";
+                // Push the same element onto the stack
+                // to preserve the order
+                s.push(x);
+            }
+
+            template<typename T>
             void print(std::stack<T> s) {
                 using namespace std;
-                cout << "[";
-                typename set<T>::iterator beforeEnd = prev(s.end(), 1);
-                for (auto it = s.begin(); it != s.end(); ++it){
-                    cout << it.operator*();
-                    if (it != beforeEnd) {
-                        cout << ", ";
-                    }
-                }
-                cout << "]";
+                cout << "<<===>> ";
+                printInternal(s);
             }
 
         }
