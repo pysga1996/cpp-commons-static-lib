@@ -1,7 +1,7 @@
-#ifndef CPP_COMMONS_COMMON_QUEUE_H
-#define CPP_COMMONS_COMMON_QUEUE_H
+#ifndef CPP_COMMONS_COMMON_SET_H
+#define CPP_COMMONS_COMMON_SET_H
 
-#include <queue>
+#include <set>
 #include <string>
 #include <exception>
 #include <iostream>
@@ -14,33 +14,33 @@ namespace cpp_commons {
 
     namespace common_collection {
 
-        namespace common_queue {
+        namespace common_set {
 
             template<typename T>
-            std::queue<T> convertFromString(const std::string &str) {
+            std::set<T> convertFromString(const std::string &str) {
                 using namespace std;
-                queue<T> q{};
+                set<T> s{};
                 auto start = 0U;
-                auto end = str.find(DELIM);
+                auto end = str.find(COMMA);
                 string token;
                 T data;
                 while (end != string::npos) {
                     token = str.substr(start, end - start);
                     data = common_util::convertData<T>(token);
-                    q.push(data);
+                    s.insert(data);
 //                    cout << token << endl;
-                    start = end + DELIM.length();
-                    end = str.find(DELIM, start);
+                    start = end + COMMA.length();
+                    end = str.find(COMMA, start);
                 }
                 token = str.substr(start, end);
                 data = common_util::convertData<T>(token);
-                q.push(data);
+                s.insert(data);
 //                cout << token << endl;
-                return q;
+                return s;
             }
 
             template<typename T>
-            std::queue<T> importFromFile(const std::string &fileName) {
+            std::set<T> importFromFile(const std::string &fileName) {
                 using namespace std;
                 ifstream is(fileName);
                 if (is.is_open()) {   //checking whether the file is open
@@ -51,29 +51,25 @@ namespace cpp_commons {
                     }
                     is.close(); //close the file object.
                 }
-                return queue<T>{};
+                return set<T>{};
             }
 
             template<typename T>
-            void print(std::queue<T> q) {
+            void print(std::set<T> s) {
                 using namespace std;
-                cout << "<<==";
-                int i = 0;
-                while(!q.empty()){
-                    cout << " " << q.front();
-                    if (i < q.size() - 1) {
-                        cout << " | ";
+                cout << "[";
+                typename set<T>::iterator beforeEnd = prev(s.end(), 1);
+                for (auto it = s.begin(); it != s.end(); ++it){
+                    cout << it.operator*();
+                    if (it != beforeEnd) {
+                        cout << ", ";
                     }
-                    q.pop();
                 }
-                cout << " <<==";
+                cout << "]";
             }
 
         }
     }
 }
 
-#endif //CPP_COMMONS_COMMON_LIST_H
-
-
-#endif //CPP_COMMONS_COMMON_QUEUE_H
+#endif

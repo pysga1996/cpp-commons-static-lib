@@ -35,3 +35,5 @@
 /cmake-build-debug-wsl/
 /cmake-build-release-visual-studio/
 /cmake-build-release-wsl/
+/cmake-build-debug-mingw-thread/
+/cmake-build-release-mingw-thread-posix/

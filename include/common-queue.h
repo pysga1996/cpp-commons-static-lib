@@ -1,7 +1,7 @@
-#ifndef CPP_COMMONS_COMMON_VECTOR_H
-#define CPP_COMMONS_COMMON_VECTOR_H
+#ifndef CPP_COMMONS_COMMON_QUEUE_H
+#define CPP_COMMONS_COMMON_QUEUE_H
 
-#include <vector>
+#include <queue>
 #include <string>
 #include <exception>
 #include <iostream>
@@ -14,33 +14,33 @@ namespace cpp_commons {
 
     namespace common_collection {
 
-        namespace common_vector {
+        namespace common_queue {
 
             template<typename T>
-            std::vector<T> convertFromString(const std::string &str) {
+            std::queue<T> convertFromString(const std::string &str) {
                 using namespace std;
-                vector<T> v{};
+                queue<T> q{};
                 auto start = 0U;
-                auto end = str.find(DELIM);
+                auto end = str.find(COMMA);
                 string token;
                 T data;
                 while (end != string::npos) {
                     token = str.substr(start, end - start);
                     data = common_util::convertData<T>(token);
-                    v.push_back(data);
+                    q.push(data);
 //                    cout << token << endl;
-                    start = end + DELIM.length();
-                    end = str.find(DELIM, start);
+                    start = end + COMMA.length();
+                    end = str.find(COMMA, start);
                 }
                 token = str.substr(start, end);
                 data = common_util::convertData<T>(token);
-                v.push_back(data);
+                q.push(data);
 //                cout << token << endl;
-                return v;
+                return q;
             }
 
             template<typename T>
-            std::vector<T> importFromFile(const std::string &fileName) {
+            std::queue<T> importFromFile(const std::string &fileName) {
                 using namespace std;
                 ifstream is(fileName);
                 if (is.is_open()) {   //checking whether the file is open
@@ -51,23 +51,23 @@ namespace cpp_commons {
                     }
                     is.close(); //close the file object.
                 }
-                return vector<T>{};
+                return queue<T>{};
             }
 
             template<typename T>
-            void print(std::vector<T> v) {
+            void print(std::queue<T> q) {
                 using namespace std;
-                cout << "[";
-                for (int i = 0; i < v.size(); ++i) {
-                    cout << v.at(i);
-                    if (i < v.size() - 1) {
-                        cout << ", ";
-                    }
+                queue<T> qClone(q);
+                cout << "<<< " ;
+                while (!qClone.empty()) {
+                    std::cout << qClone.front() << TAB;
+                    qClone.pop();
                 }
-                cout << "]";
+                cout << "<<<";
             }
+
         }
     }
 }
 
-#endif //CPP_COMMONS_COMMON_VECTOR_H
+#endif

@@ -1,7 +1,7 @@
-#ifndef CPP_COMMONS_COMMON_LIST_H
-#define CPP_COMMONS_COMMON_LIST_H
+#ifndef CPP_COMMONS_COMMON_STACK_H
+#define CPP_COMMONS_COMMON_STACK_H
 
-#include <list>
+#include <stack>
 #include <string>
 #include <exception>
 #include <iostream>
@@ -14,33 +14,33 @@ namespace cpp_commons {
 
     namespace common_collection {
 
-        namespace common_list {
+        namespace common_stack {
 
             template<typename T>
-            std::list<T> convertFromString(const std::string &str) {
+            std::stack<T> convertFromString(const std::string &str) {
                 using namespace std;
-                list<T> l{};
+                stack<T> s{};
                 auto start = 0U;
-                auto end = str.find(DELIM);
+                auto end = str.find(COMMA);
                 string token;
                 T data;
                 while (end != string::npos) {
                     token = str.substr(start, end - start);
                     data = common_util::convertData<T>(token);
-                    l.push_back(data);
+                    s.push(data);
 //                    cout << token << endl;
-                    start = end + DELIM.length();
-                    end = str.find(DELIM, start);
+                    start = end + COMMA.length();
+                    end = str.find(COMMA, start);
                 }
                 token = str.substr(start, end);
                 data = common_util::convertData<T>(token);
-                l.push_back(data);
+                s.push(data);
 //                cout << token << endl;
-                return l;
+                return s;
             }
 
             template<typename T>
-            std::list<T> importFromFile(const std::string &fileName) {
+            std::stack<T> importFromFile(const std::string &fileName) {
                 using namespace std;
                 ifstream is(fileName);
                 if (is.is_open()) {   //checking whether the file is open
@@ -51,25 +51,32 @@ namespace cpp_commons {
                     }
                     is.close(); //close the file object.
                 }
-                return list<T>{};
+                return stack<T>{};
             }
 
             template<typename T>
-            void print(std::list<T> l) {
+            void print(std::stack<T> s) {
                 using namespace std;
-                cout << "[";
-                typename list<T>::iterator beforeEnd = prev(l.end(), 1);
-                for (auto it = l.begin(); it != l.end(); ++it){
-                    cout << it.operator*();
-                    if (it != beforeEnd) {
-                        cout << ", ";
-                    }
+                cout << "| ";
+                stack<int> temp;
+                while (s.empty() == false) {
+                    temp.push(s.top());
+                    s.pop();
                 }
-                cout << "]";
+                while (!temp.empty()) {
+                    int t = temp.top();
+                    cout << t << TAB;
+                    temp.pop();
+
+                    // To restore contents of
+                    // the original stack.
+                    s.push(t);
+                }
+                cout << "<<<>>>";
             }
 
         }
     }
 }
 
-#endif //CPP_COMMONS_COMMON_LIST_H
+#endif

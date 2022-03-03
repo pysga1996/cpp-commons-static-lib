@@ -11,9 +11,11 @@ include_directories(lib/googletest/googletest/include)
 
 #include the googlemock/include dir
 include_directories(lib/googletest/googlemock/include)
-file(GLOB_RECURSE COMMON_SRC src/*.cpp src/*.h)
+
+include_directories(include)
+
+file(GLOB_RECURSE COMMON_SRC ./src/*.cpp ./include/*.h)
 message(STATUS "Files are ${COMMON_SRC}")
-include_directories(src src/common-collection src/common-matrix src/common-string src/common-number src/common-util)
 add_library(cpp-commons SHARED ${COMMON_SRC})
 
 file(GLOB_RECURSE COMMON_TEST test/*.cpp test/*/*.cpp)
