@@ -37,3 +37,5 @@
 /cmake-build-release-wsl/
 /cmake-build-debug-mingw-thread/
 /cmake-build-release-mingw-thread-posix/
+/cmake-build-debug-mingw/
+/cmake-build-release-mingw/

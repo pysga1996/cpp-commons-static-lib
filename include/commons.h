@@ -1,10 +1,10 @@
 #ifndef CPP_COMMONS_H
 #define CPP_COMMONS_H
 
-#include <common-collection.h>
-#include <common-string.h>
-#include <common-number.h>
-#include <common-var.h>
-#include <common-util.h>
+#include <common_collection.h>
+#include <common_string.h>
+#include <common_number.h>
+#include <common_var.h>
+#include <common_util.h>
 
 #endif
