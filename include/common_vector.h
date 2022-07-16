@@ -40,6 +40,22 @@ namespace cpp_commons {
             }
 
             template<typename T>
+            std::vector<T> scanVector(int length) {
+                using namespace std;
+                vector<T> vt;
+                cout << ">>> Start input vector:" << endl;
+                for (int i = 0; i < length; ++i) {
+                    string temp;
+                    cout << "- Enter element " << i << endl;
+                    cin >> temp;
+                    T x = data_util::convertData<T>(temp);
+                    vt.push_back(x);
+                }
+                cout << "<<< End input vector." << endl;
+                return vt;
+            }
+
+            template<typename T>
             std::vector<T> importFromFile(const std::string &fileName) {
                 using namespace std;
                 ifstream is(fileName);
